@@ -1,7 +1,5 @@
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
 
 public class PhoneNumberTest {
@@ -14,7 +12,7 @@ public class PhoneNumberTest {
     @Test
     public void whenStringHasNoAreaCodeReturnNull() {
         PhoneNumber phoneNumber = new PhoneNumber("invalid");
-        assertEquals(null, phoneNumber.getAreaCode());
+        assertTrue(0 == phoneNumber.getAreaCode());
     }
 
     @Test

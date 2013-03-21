@@ -3,13 +3,11 @@ import java.util.regex.Pattern;
 
 public class PhoneNumber {
     Integer areaCode;
+    Integer extension;
 
     public PhoneNumber(String phoneNumber) {
-        Pattern pattern = Pattern.compile("\\((.*)\\).*");
-//        Pattern pattern = Pattern.compile("(.*)");
-        Matcher matcher = pattern.matcher(phoneNumber);
-        boolean b = matcher.matches();
-        this.areaCode = matcher.matches() ? Integer.parseInt(matcher.group(1)) : null;
+        this.areaCode = findAreaCode(phoneNumber);
+        this.extension = findExtension(phoneNumber);
     }
 
     public PhoneNumber(Integer areaCode, Integer firstBit, Integer secondBit) {
@@ -21,6 +19,19 @@ public class PhoneNumber {
     }
 
     public int getExtension() {
-        return 0;
+        return extension;
     }
+
+    protected int findExtension(String phoneNumber){
+        Pattern pattern = Pattern.compile(".*x(.*)");
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches() ? Integer.parseInt(matcher.group(1)) : 0;
+    }
+
+    protected int findAreaCode(String phoneNumber){
+        Pattern pattern = Pattern.compile("\\((.*)\\).*");
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches() ? Integer.parseInt(matcher.group(1)) : 0;
+    }
+
 }
